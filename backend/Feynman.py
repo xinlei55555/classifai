@@ -39,9 +39,9 @@ def Feynman(transcript = "Nothing has been passed!"):
     #returns a summarized vesrion of each paragraph, by summarizing each sentence
     point_form=[]
     summarizer = pipeline("summarization")
-    sentences = sentences(transcript)
+    paragraph = sentences(transcript)
     summarized=""
-    for sentence in len(sentences):
+    for sentence in paragraph:
         summarized+= sentence
         #summarize three sentences at a time? Or a specific character count at a time? 
         if len(summarized>700): 
