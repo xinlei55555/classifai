@@ -15,9 +15,9 @@ def decodebase64(video_string, type):
     # https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
     # https://stackoverflow.com/questions/50279380/how-to-decode-base64-string-directly-to-binary-audio-format
     sample_string_bytes = base64.b64decode(video_string)
-    audio_file = open(f"test.{type}", "wb")
+    audio_file = open(f"backend/test.{type}", "wb")
     audio_file.write(sample_string_bytes)
     
-    return transcribeAudio(f"test.{type}")
+    return transcribeAudio(f"backend/test.{type}")
 
-print(transcribeAudio("Recording.wav"))
+print(transcribeAudio(r"backend/harvard.wav"))
