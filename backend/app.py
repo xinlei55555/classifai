@@ -16,8 +16,11 @@ def hello_world():
 def login():
     pass
 
-def speechTranscription(transcript):    
-    return decodebase64(transcript) 
+@app.route("/recognizer", methods=['POST'])
+def speechTranscription(transcript):   
+    json=request.get_json()
+    file = json["file"] 
+    return decodebase64(file) 
 
 #rest api.
 @app.route("/penpal", methods=['POST'])
@@ -27,10 +30,11 @@ def second_page():
     json = request.get_json()
     file_type = json["file_type"]
 
-    if file_type == "text":
-        transcript = json["transcript"]
-    elif file_type == "wav" or file_type == "mp3":
-        transcript = speechTranscription(json["transcript"])
+    # if file_type == "text":
+    transcript = json["transcript"]
+
+    # elif file_type == "wav" or file_type == "mp3":
+    #     transcript = speechTranscription(json["transcript"])
 
     return jsonify(Feynman(transcript))
 

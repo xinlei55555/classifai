@@ -20,3 +20,5 @@ def decodebase64(video_string, type):
     audio_file.write(sample_string_bytes)
     
     return transcribeAudio(f"test.{type}")
+
+print(transcribeAudio("Recording.mp3"))
