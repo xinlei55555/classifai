@@ -44,7 +44,7 @@ def Feynman(transcript = "Nothing has been passed!"):
     for sentence in paragraph:
         summarized+= sentence
         #summarize three sentences at a time? Or a specific character count at a time? 
-        if len(summarized>700): 
+        if len(summarized)>700: 
             point_form.append(summarizer(summarized)[0]["summary_text"])
             summarized=""
     
