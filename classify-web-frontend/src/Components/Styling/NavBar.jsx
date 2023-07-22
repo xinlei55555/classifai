@@ -33,28 +33,28 @@ const NavBar = () => {
         <ul className="flex flex-col items-center ">
           <Link to="/penpal">
             <li className="px-5 py-5">
-              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 ">
+              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 PenPal
               </a>
             </li>
           </Link>
           <Link to="/intelliCards">
             <li className="px-5 py-5">
-              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 ">
+              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 IntelliCards
               </a>
             </li>
           </Link>
           <Link to="/intelliCards">
             <li className="px-5 py-5">
-              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 ">
+              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 Sensei
               </a>
             </li>
           </Link>
           <Link to="/login">
             <li className="px-5 py-5">
-              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 ">
+              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 Logout
               </a>
             </li>
@@ -81,7 +81,7 @@ const NavBar = () => {
         >
           <Link to="/penpal">
             <li className="px-5 py-5">
-              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 ">
+              <a className=" text-black hover:rounded-lg px-5 py-5 hover:text-slate-900 hover:bg-slate-200">
                 PenPal
               </a>
             </li>
