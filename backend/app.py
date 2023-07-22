@@ -1,5 +1,5 @@
 from flask import Flask, request
-from Feynman import feynman 
+from Feynman import Feynman 
 from flashcards import Flashcards
 #using json files:
 
@@ -16,8 +16,9 @@ def hello_world():
 def second_page():
     # transcript = request.args.get("transcript")
     # instead of doing this, since aly is not happy, I will be taking in the body of the request, which is a json
-    transcript = request.get_json()
-    return PenPal(transcript)
+    json = request.get_json()
+    transcript = json["transcript"]
+    return Feynman(transcript)
 
 @app.route("/flashcards")
 def third_page():
