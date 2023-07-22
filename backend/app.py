@@ -1,6 +1,7 @@
 from flask import Flask, request
 from Feynman import Feynman 
 from flashcards import Flashcards
+from speech_recognition import decodebase64
 #using json files:
 
 #app is taking the name of __name__, which is any name
@@ -11,14 +12,27 @@ app = Flask(__name__)
 def hello_world():
     return "Hi"
 
+@app.route("/login")
+def login():
+    pass
+
+def speechTranscription(transcript):    
+    return decodebase64(transcript) 
+
 #rest api.
-@app.route("/penpal")
+@app.route("/penpal", methods=['POST'])
 def second_page():
-    # transcript = request.args.get("transcript")
+    # transcript = request.form["transcript"]
     # instead of doing this, since aly is not happy, I will be taking in the body of the request, which is a json
     json = request.get_json()
-    transcript = json["transcript"]
-    return Feynman(transcript)
+    file_type = json["file_type"]
+
+    if file_type == "text":
+        transcript = json["transcript"]
+    elif file_type == "wav" or file_type == "mp3":
+        transcript = speechTranscription(json["transcript"])
+
+    return jsonify(Feynman(transcript))
 
 @app.route("/flashcards")
 def third_page():

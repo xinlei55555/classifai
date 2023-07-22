@@ -55,7 +55,7 @@ transcript = "Richard Phillips Feynman was an American theoretical physicist, kn
 print(Feynman(transcript))
 # print(sentences(transcript))
 # print(remove_bad_characters(transcript))
-
+ 
 
 # pointForm = pipeline("text-generation", model = "distilgpt2")
     # pointForm = (
