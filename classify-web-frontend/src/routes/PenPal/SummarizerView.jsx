@@ -7,6 +7,7 @@ import SpeechRecognition, {
 const SummarizerView = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isLoadingForMP3, setIsLoadingForMP3] = useState(false);
+  const [transcriptValue, setTranscriptValue] = useState("");
   const {
     transcript,
     listening,
@@ -23,6 +24,9 @@ const SummarizerView = () => {
       SpeechRecognition.stopListening();
     }
   }, [isRecording]);
+  useEffect(() => {
+    setTranscriptValue(transcript);
+  }, [transcript]);
 
   const uploadFile = async (event) => {
     setIsLoadingForMP3(true);
@@ -163,7 +167,10 @@ const SummarizerView = () => {
           <textarea
             style={{ backgroundColor: "#082d54", color: "#ededed" }}
             placeholder="Transcript..."
-            value={transcript}
+            onChange={(e) => {
+              setTranscriptValue(e.target.value);
+            }}
+            value={transcriptValue}
           />
           <textarea
             style={{
