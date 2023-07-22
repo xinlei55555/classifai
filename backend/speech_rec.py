@@ -21,4 +21,4 @@ def decodebase64(video_string, type):
     
     return transcribeAudio(f"test.{type}")
 
-print(transcribeAudio("Recording.mp3"))
+print(decodebase64())
