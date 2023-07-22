@@ -1,7 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./PenPal.css";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 const SummarizerView = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const [isLoadingForMP3, setIsLoadingForMP3] = useState(false);
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  useEffect(() => {
+    if (isRecording) {
+      resetTranscript();
+      SpeechRecognition.startListening({ continuous: true });
+    } else {
+      console.log("STOPPED");
+      SpeechRecognition.stopListening();
+    }
+  }, [isRecording]);
+
+  const uploadFile = async (event) => {
+    setIsLoadingForMP3(true);
+    let file = event.target.files[0];
+    console.log(file);
+    const encodeFileBase64 = (file) => {
+      var reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          var Base64 = reader.result;
+          console.log(Base64);
+        };
+        reader.onerror = (error) => {
+          console.log("error: ", error);
+        };
+      }
+    };
+    if (file) {
+      encodeFileBase64(file);
+    }
+    setIsLoadingForMP3(false);
+  };
+
+  if (!browserSupportsSpeechRecognition && isRecording) {
+    return (
+      <span>
+        Browser doesn't support speech recognition. Please try on another
+        browser to access feature
+      </span>
+    );
+  }
   return (
     <div style={{ paddingBottom: "100px" }}>
       <div className="titleContainer">
@@ -50,7 +103,7 @@ const SummarizerView = () => {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <button
+              <label
                 className="btn"
                 style={{
                   backgroundColor: "#b3d0ff",
@@ -58,7 +111,29 @@ const SummarizerView = () => {
                   borderRadius: 10,
                 }}
               >
-                Load MP3 File
+                <input
+                  class="someClass"
+                  type="file"
+                  name="UploadAudio"
+                  accept=".mp3,audio/*"
+                  hidden
+                  disabled={isLoadingForMP3}
+                  onChange={uploadFile}
+                />
+                {!isLoadingForMP3 ? "Load MP3 File" : "Loading..."}
+              </label>
+              <button
+                className="btn"
+                style={{
+                  backgroundColor: "#eb3f2f",
+                  color: "white",
+                  borderRadius: 10,
+                }}
+                onClick={() => {
+                  setIsRecording(!isRecording);
+                }}
+              >
+                {!isRecording ? "Record Voice" : "Stop Recording"}
               </button>
               <button
                 className="btn"
@@ -88,6 +163,7 @@ const SummarizerView = () => {
           <textarea
             style={{ backgroundColor: "#082d54", color: "#ededed" }}
             placeholder="Transcript..."
+            value={transcript}
           />
           <textarea
             style={{

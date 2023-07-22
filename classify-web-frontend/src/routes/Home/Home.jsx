@@ -50,7 +50,7 @@ const Home = () => {
             initialSegment={[0, 500]}
             lottieRef={studyAnimationRef}
             animationData={animationData}
-            style={{ width: 350 }}
+            style={{ width: 500 }}
           />
         </div>
         <a
@@ -58,7 +58,7 @@ const Home = () => {
             scroll();
           }}
         >
-          <div style={{ marginTop: 40 }}>
+          <div style={{ marginTop: 70 }}>
             <button
               style={{
                 backgroundColor: "white",
@@ -69,7 +69,7 @@ const Home = () => {
               }}
             >
               <p
-                style={{ padding: 5, fontWeight: "bold", fontFamily: "Roboto" }}
+                style={{ padding: 8, fontWeight: "bold", fontFamily: "Roboto" }}
               >
                 Get started!
               </p>
