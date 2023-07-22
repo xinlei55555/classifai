@@ -1,7 +1,7 @@
 from flask import Flask, request
 from Feynman import Feynman 
-from flashcards import Flashcards
-from speech_rec import decodebase64
+# from flashcards import Flashcards
+# from speech_recognition import decodebase64
 #using json files:
 
 #app is taking the name of __name__, which is any name
