@@ -4,9 +4,8 @@ import speech_recognition as sr
 # https://realpython.com/python-speech-recognition/
 def transcribeAudio(file_name):
     r=sr.Recognizer()
-    file = sr.AudioFile(file_name)
-
-    with file as source:
+    harvard = sr.AudioFile(file_name)
+    with harvard as source:
         audio = r.record(source)
     
     return r.recognize_google(audio)
@@ -21,4 +20,4 @@ def decodebase64(video_string, type):
     
     return transcribeAudio(f"test.{type}")
 
-print(transcribeAudio("Recording.mp3"))
+print(transcribeAudio("Recording.wav"))
