@@ -9,7 +9,7 @@ def transcribeAudio(file_name):
     with file as source:
         audio = r.record(source)
     
-    return r.recognize_good(audio)
+    return r.recognize_google(audio)
 
 def decodebase64(video_string, type):
     #decoding base 64:
