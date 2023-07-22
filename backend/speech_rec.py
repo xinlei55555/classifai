@@ -20,4 +20,5 @@ def decodebase64(video_string, type):
     
     return transcribeAudio(f"backend/test.{type}")
 
-print(transcribeAudio(r"backend/harvard.wav"))
+#pass the folder and the file, not just the file!!!
+# print(transcribeAudio(r"backend/harvard.wav"))
