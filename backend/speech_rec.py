@@ -4,9 +4,8 @@ import speech_recognition as sr
 # https://realpython.com/python-speech-recognition/
 def transcribeAudio(file_name):
     r=sr.Recognizer()
-    file = sr.AudioFile(file_name)
-
-    with file as source:
+    harvard = sr.AudioFile(file_name)
+    with harvard as source:
         audio = r.record(source)
     
     return r.recognize_google(audio)
@@ -16,9 +15,11 @@ def decodebase64(video_string, type):
     # https://www.geeksforgeeks.org/encoding-and-decoding-base64-strings-in-python/
     # https://stackoverflow.com/questions/50279380/how-to-decode-base64-string-directly-to-binary-audio-format
     sample_string_bytes = base64.b64decode(video_string)
-    audio_file = open(f"test.{type}", "wb")
+    audio_file = open(f"backend/test.{type}", "wb")
     audio_file.write(sample_string_bytes)
     
-    return transcribeAudio(f"test.{type}")
+    return transcribeAudio(f"backend/test.{type}")
 
-print(decodebase64())
+# print(decodebase64())
+#pass the folder and the file, not just the file!!!
+# print(transcribeAudio(r"backend/harvard.wav"))
