@@ -19,7 +19,7 @@ def login():
     pass
 
 @app.route("/recognizer", methods=['POST'])
-def speechTranscription(transcript):   
+def speechTranscription():   
     json=request.get_json()
     file = json["file"] 
     return decodebase64(file) 
