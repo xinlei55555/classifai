@@ -50,7 +50,7 @@ def third_page():
     penpal = request.get_json()
     subject = penpal["subject"]
     notes = penpal["notes"]
-    return Flashcards(subject, notes)
+    return Flashcards(subject, notes, summarizer, qna)
 
 if __name__ == '__main__':
     app.run(debug=True)
