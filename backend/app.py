@@ -42,15 +42,15 @@ def second_page():
 
     return jsonify(Feynman(transcript))
 
-@app.route("/flashcards", methods = ["POST"])
-def third_page():
-    # transcript = request.args.get("transcript")
+# @app.route("/flashcards", methods = ["POST"])
+# def third_page():
+#     # transcript = request.args.get("transcript")
 
-    #extracts the json from the body of the POST
-    penpal = request.get_json()
-    subject = penpal["subject"]
-    notes = penpal["notes"]
-    return Flashcards(subject, notes, summarizer, qna)
+#     #extracts the json from the body of the POST
+#     penpal = request.get_json()
+#     subject = penpal["subject"]
+#     notes = penpal["notes"]
+#     return Flashcards(subject, notes, summarizer, qna)
 
 if __name__ == '__main__':
     app.run(debug=True)
