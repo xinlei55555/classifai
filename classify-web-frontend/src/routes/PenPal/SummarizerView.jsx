@@ -8,6 +8,8 @@ const SummarizerView = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [isLoadingForMP3, setIsLoadingForMP3] = useState(false);
   const [transcriptValue, setTranscriptValue] = useState("");
+  const [penpalValue, setPenPalValue] = useState("");
+  const [isLoadingForPenPal, setIsLoadingForPenPal] = useState(false);
   const {
     transcript,
     listening,
@@ -34,21 +36,58 @@ const SummarizerView = () => {
     console.log(file);
     const encodeFileBase64 = (file) => {
       var reader = new FileReader();
+      let Base64 = "";
       if (file) {
         reader.readAsDataURL(file);
         reader.onload = () => {
-          var Base64 = reader.result;
+          Base64 = reader.result;
           console.log(Base64);
         };
         reader.onerror = (error) => {
           console.log("error: ", error);
         };
+        return Base64;
       }
     };
     if (file) {
-      encodeFileBase64(file);
+      let Base64 = encodeFileBase64(file);
+      try {
+        const body = { file: Base64 };
+        console.log(body);
+        const response = await fetch("http://127.0.0.1:5000/recognizer", {
+          body: JSON.stringify(body),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setTranscriptValue(data);
+      } catch (err) {
+        console.log(err);
+      }
     }
     setIsLoadingForMP3(false);
+  };
+  const PenPal = async (transcript) => {
+    setIsLoadingForPenPal(true);
+    try {
+      const body = { transcript: transcriptValue };
+      console.log(body);
+      const response = await fetch("http://127.0.0.1:5000/penpal", {
+        body: JSON.stringify(body),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setPenPalValue(data);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoadingForPenPal(false);
   };
 
   if (!browserSupportsSpeechRecognition && isRecording) {
@@ -119,7 +158,7 @@ const SummarizerView = () => {
                   class="someClass"
                   type="file"
                   name="UploadAudio"
-                  accept=".mp3,audio/*"
+                  accept=".mp3"
                   hidden
                   disabled={isLoadingForMP3}
                   onChange={uploadFile}
@@ -142,10 +181,12 @@ const SummarizerView = () => {
               <button
                 className="btn"
                 style={{
-                  backgroundColor: "#0388fc",
+                  backgroundColor: !isLoadingForPenPal ? "#0388fc" : "black",
                   color: "white",
                   borderRadius: 10,
                 }}
+                onClick={PenPal}
+                disabled={isLoadingForPenPal}
               >
                 <i style={{ fontFamily: "Victor Mono", fontWeight: "bold" }}>
                   PenPal
@@ -178,7 +219,11 @@ const SummarizerView = () => {
               fontWeight: "400",
             }}
             placeholder="PenPal..."
-            value={""}
+            value={
+              typeof penpalValue === "string"
+                ? ""
+                : penpalValue.subject + "\n" + JSON.stringify(penpalValue)
+            }
             disabled
           />
         </div>
