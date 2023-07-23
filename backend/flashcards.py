@@ -18,8 +18,9 @@ def questionAnswering():
     )
     return answers
 
-def Flashcards(transcript = "Nothing has been passed!"):
+def Flashcards(subject = ["It seems that no subject was passed!"], notes = ["It seemed that no notes were past"], summarizer=pipeline("summarization"), qna =pipeline ("question-answering")):
     print(questionAnswering())
+    
     return transcript
 
 Flashcards("HI")
