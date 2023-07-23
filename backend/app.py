@@ -15,7 +15,7 @@ CORS(app)
 def hello_world():
     return "Hi"
 
-@app.route("/login")
+@app.route("/login") by
 def login():
     pass
 
@@ -42,13 +42,15 @@ def second_page():
 
     return jsonify(Feynman(transcript))
 
-@app.route("/flashcards")
+@app.route("/flashcards", methods = ["POST"])
 def third_page():
     # transcript = request.args.get("transcript")
 
     #extracts the json from the body of the POST
-    transcript = request.get_json()
-    return Flashcards(transcript)
+    penpal = request.get_json()
+    subject = penpal["subject"]
+    notes = penpal["notes"]
+    return Flashcards(subject, notes)
 
 if __name__ == '__main__':
     app.run(debug=True)
